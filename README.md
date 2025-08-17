@@ -93,6 +93,8 @@ The project is divided into two main parts:
   - Login Form
   - Register Form
   - Task Create / Update Form (same component)
+  - ![Register Screenshot](https://github.com/ravichoudhary18/task/blob/master/project_ss/Screenshot_20250818_014151.png?raw=true)
+  - ![Register Screenshot](https://github.com/ravichoudhary18/task/blob/master/project_ss/Screenshot_20250818_014222.png?raw=true)
   - Delete Modal
   - Task Table (custom-built)
 - **Authentication**:
