@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from decouple import config
+from datetime import timedelta
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -183,9 +184,6 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 APPEND_SLASH = False
-
-from datetime import timedelta
-
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=10),  # Access token valid 10 seconds
