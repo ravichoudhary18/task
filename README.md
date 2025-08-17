@@ -108,10 +108,11 @@ The project is divided into two main parts:
 
 ### Pages
 
-- **Login Page** → [GitHub Link Here]
-- **Register Page** → [GitHub Link Here]
+- **Login Page** → [Register Screenshot](https://github.com/ravichoudhary18/task/blob/master/project_ss/Screenshot_20250818_012209.png)
+- **Register Page** → ![Register Screenshot](https://github.com/ravichoudhary18/task/blob/master/project_ss/Screenshot_20250818_012339.png?raw=true)
 - **Home Page** → Logout + Task Table
 - **Dashboard** → Manage tasks
+- ![Register Screenshot](https://github.com/ravichoudhary18/task/blob/master/project_ss/Screenshot_20250818_014134.png?raw=true)
 
 ---
 
