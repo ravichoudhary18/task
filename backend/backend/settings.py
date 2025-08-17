@@ -74,7 +74,11 @@ THIRD_PARTY_MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
 ]
 
-MIDDLEWARE = DEFAULT_MIDDLEWARE + THIRD_PARTY_MIDDLEWARE
+MIDDLEWARE = [
+    "middleware.rate_limit.RateLimitMiddleware",
+]
+
+MIDDLEWARE = DEFAULT_MIDDLEWARE + THIRD_PARTY_MIDDLEWARE + MIDDLEWARE
 
 ROOT_URLCONF = "backend.urls"
 
@@ -167,6 +171,10 @@ REST_FRAMEWORK = {
         "rest_framework.filters.SearchFilter",
         "rest_framework.filters.OrderingFilter",
     ],
+    "DEFAULT_THROTTLE_RATES": {
+        "user": "100/hour",  # logged-in users
+        "anon": "10/minute",  # anonymous users
+    },
 }
 
 AUTHENTICATION_BACKENDS = [

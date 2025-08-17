@@ -1,8 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&display=swap');
-@import 'tailwindcss';
+@import url("https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&display=swap");
+@import "tailwindcss";
 @config "../tailwind.config.js";
 /* @plugin "daisyui"; */
-
 
 /* Smooth scrolling for better UX */
 html {
@@ -15,28 +14,35 @@ html {
 */
 
 @keyframes blob {
-	0% {
-		transform: translate(0px, 0px) scale(1);
-	}
-	33% {
-		transform: translate(30px, -50px) scale(1.1);
-	}
-	66% {
-		transform: translate(-20px, 20px) scale(0.9);
-	}
-	100% {
-		transform: translate(0px, 0px) scale(1);
-	}
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
 }
 
 .animate-blob {
-	animation: blob 15s infinite ease-in-out;
+  animation: blob 15s infinite ease-in-out;
 }
 
 .animation-delay-2000 {
-	animation-delay: -2s;
+  animation-delay: -2s;
 }
 
 .animation-delay-4000 {
-	animation-delay: -4s;
+  animation-delay: -4s;
+}
+
+/* Autofill fix for Chrome/Safari */
+input:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px white inset !important;
+  -webkit-text-fill-color: #1f2937 !important; /* Tailwind gray-800 */
+  transition: background-color 5000s ease-in-out 0s;
 }

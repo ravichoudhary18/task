@@ -4,6 +4,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 
 from backend.pagination import TaskPagination
+from task.throttles import TaskRateThrottle
 
 from .models import Task
 from .serializers import TaskSerializer
@@ -14,6 +15,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = TaskPagination
+    throttle_classes = [TaskRateThrottle]  # ✅ add throttle
 
     filter_backends = [
         DjangoFilterBackend,

@@ -15,10 +15,10 @@ export default function Tasks() {
   const [modalTask, setModalTask] = useState(null);
   const [confirmTask, setConfirmTask] = useState(null);
   const [pagination, setPagination] = useState({
-        next: null,
-        previous: null,
-        count: null
-    })
+    next: null,
+    previous: null,
+    count: null,
+  });
 
   // Fetch tasks
   const fetchTasks = useCallback(async () => {
@@ -26,12 +26,11 @@ export default function Tasks() {
       const response = await axiosPrivate.get("task/tasks/");
       setTasks(response.data.results || []);
       setPagination((prev) => ({
-                    ...prev, 
-                    next: response.data?.next,
-                    previous: response.data?.previous,
-                    count: response.data?.count
-                }))
-
+        ...prev,
+        next: response.data?.next,
+        previous: response.data?.previous,
+        count: response.data?.count,
+      }));
     } catch (error) {
       console.error(error);
       showErrorToast("Failed to fetch tasks");
@@ -46,7 +45,9 @@ export default function Tasks() {
   const handleStatusChange = useCallback(
     async (taskId, newStatus) => {
       try {
-        await axiosPrivate.patch(`task/tasks/${taskId}/`, { status: newStatus });
+        await axiosPrivate.patch(`task/tasks/${taskId}/`, {
+          status: newStatus,
+        });
         setTasks((prev) =>
           prev.map((t) => (t.id === taskId ? { ...t, status: newStatus } : t))
         );
@@ -87,7 +88,13 @@ export default function Tasks() {
       <AddTaskButton onClick={() => openModal()} />
 
       <TaskFilters setTasks={setTasks} />
-      <Pagination pagination={pagination} setPagination={setPagination} setRecord={setTasks} />
+      <div className="my-4">
+        <Pagination
+          pagination={pagination}
+          setPagination={setPagination}
+          setRecord={setTasks}
+        />
+      </div>
 
       <TaskTable
         tasks={tasks}

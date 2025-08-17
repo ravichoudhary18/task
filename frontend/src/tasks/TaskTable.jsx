@@ -1,23 +1,100 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 
 function TaskTable({ tasks = [], onStatusChange, onEdit, onDelete }) {
+  const [filters, setFilters] = useState({
+    title: "",
+    description: "",
+    status: "",
+    created_at: "",
+  });
+
+  // Handle filter input change
+  const handleFilterChange = (field, value) => {
+    setFilters((prev) => ({ ...prev, [field]: value }));
+  };
+
+  // Apply filters
+  const filteredTasks = useMemo(() => {
+    return tasks.filter((task) => {
+      const matchTitle = task.title
+        .toLowerCase()
+        .includes(filters.title.toLowerCase());
+      const matchDesc = task.description
+        .toLowerCase()
+        .includes(filters.description.toLowerCase());
+      const matchStatus = filters.status
+        ? task.status === filters.status
+        : true;
+      const matchDate = filters.created_at
+        ? new Date(task.created_at).toLocaleDateString() ===
+          new Date(filters.created_at).toLocaleDateString()
+        : true;
+
+      return matchTitle && matchDesc && matchStatus && matchDate;
+    });
+  }, [tasks, filters]);
+
   return (
-    <div className="mt-6 w-full">
+    <div className="w-full">
       {/* Desktop / Laptop Table */}
       <div className="hidden md:block border border-gray-200 rounded-lg overflow-x-auto bg-white shadow-sm">
         <table className="w-full text-sm text-left text-gray-700">
           <thead className="bg-gray-50 text-gray-600 uppercase text-xs">
             <tr>
-              <th className="px-4 py-3">Title</th>
-              <th className="px-4 py-3">Description</th>
-              <th className="px-4 py-3">Status</th>
-              <th className="px-4 py-3">Created On</th>
+              <th className="px-4 py-3">
+                Title
+                <input
+                  type="text"
+                  value={filters.title}
+                  onChange={(e) => handleFilterChange("title", e.target.value)}
+                  placeholder="Title Search"
+                  className="mt-1 w-full border border-gray-300 rounded px-2 py-1 text-xs"
+                />
+              </th>
+              <th className="px-4 py-3">
+                Description
+                <input
+                  type="text"
+                  value={filters.description}
+                  onChange={(e) =>
+                    handleFilterChange("description", e.target.value)
+                  }
+                  placeholder="Description Search"
+                  className="mt-1 w-full border border-gray-300 rounded px-2 py-1 text-xs"
+                />
+              </th>
+              <th className="px-4 py-3">
+                Status
+                <select
+                  value={filters.status}
+                  onChange={(e) => handleFilterChange("status", e.target.value)}
+                  className="mt-1 w-full border border-gray-300 rounded px-2 py-1 text-xs bg-white"
+                >
+                  <option value="">All</option>
+                  <option value="TO_DO">To Do</option>
+                  <option value="IN_PROGRESS">In Progress</option>
+                  <option value="DONE">Done</option>
+                </select>
+              </th>
+              <th className="px-4 py-3">
+                Created On
+                <input
+                  type="date"
+                  value={filters.created_at}
+                  onChange={(e) =>
+                    handleFilterChange("created_at", e.target.value)
+                  }
+                  min="2023-01-01"
+                  max={new Date().toISOString().split("T")[0]} // today's date
+                  className="mt-1 w-full border border-gray-300 rounded px-2 py-1 text-xs"
+                />
+              </th>
               <th className="px-4 py-3">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {tasks.length ? (
-              tasks.map((task) => (
+            {filteredTasks.length ? (
+              filteredTasks.map((task) => (
                 <tr
                   key={task.id}
                   className="border-t border-gray-100 hover:bg-gray-50"
@@ -58,10 +135,7 @@ function TaskTable({ tasks = [], onStatusChange, onEdit, onDelete }) {
               ))
             ) : (
               <tr>
-                <td
-                  colSpan={5}
-                  className="px-4 py-3 text-center text-gray-400"
-                >
+                <td colSpan={5} className="px-4 py-3 text-center text-gray-400">
                   No tasks found.
                 </td>
               </tr>
@@ -70,10 +144,10 @@ function TaskTable({ tasks = [], onStatusChange, onEdit, onDelete }) {
         </table>
       </div>
 
-      {/* Mobile Card View */}
+      {/* Mobile Card View (Optional: can add filters above cards instead of per column) */}
       <div className="md:hidden space-y-4">
-        {tasks.length ? (
-          tasks.map((task) => (
+        {filteredTasks.length ? (
+          filteredTasks.map((task) => (
             <div
               key={task.id}
               className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm"
