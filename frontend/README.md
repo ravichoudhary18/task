@@ -1,12 +1,56 @@
-# React + Vite
+# Task Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack **Task Manager Application** built with **React + Vite + Tailwind (Frontend)** and **Django REST Framework (Backend)**.\
+The project is divided into two main parts:
 
-Currently, two official plugins are available:
+- **Frontend (React + Vite + Tailwind)** → Provides a modern UI with reusable components for login, registration, task management, and logout.
+- **Backend (Django + DRF)** → Provides secure APIs with JWT authentication, rate limiting, pagination, search, and filtering.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 👂 Frontend Project Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```
+|-- frontend
+|   |-- dist
+|   |-- node_modules
+|   |-- public
+|   |-- Dockerfile
+|   |-- .env
+|   `-- src
+```
+
+---
+
+## 🎨 Frontend Features
+
+- **Reusable Components**:
+  - Login Form
+  - Register Form
+  - Task Create / Update Form (same component)
+  - Delete Modal
+  - Task Table (custom-built)
+- **Authentication**:
+  - Login with JWT
+  - Refresh token logic (auto logout if refresh also expires)
+  - Logout option on homepage
+- **Task Management**:
+  - Create, Update, Delete, and View tasks
+  - Client-side + Server-side search
+  - Pagination from backend
+
+---
+
+### Pages
+
+- **Login Page** → [GitHub Link Here]
+- **Register Page** → [GitHub Link Here]
+- **Home Page** → Logout + Task Table
+- **Dashboard** → Manage tasks
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend**: React, Vite, TailwindCSS
+
