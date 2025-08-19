@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: django_dev
     working_dir: /app
-    command: python manage.py runserver 0.0.0.0:8000
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./backend:/app
       - ./mount:/mnt
@@ -15,8 +15,8 @@ services:
       - "8000:8000"
     env_file:
       - .env.dev
-    depends_on:
-      - db
+    # depends_on:
+    #   - db
 
   frontend:
     image: node:20-alpine
@@ -28,15 +28,15 @@ services:
       - "3000:3000"
     command: sh -c "npm install -g pnpm && pnpm install && pnpm dev --host 0.0.0.0 --port 3000"
 
-  db:
-    image: postgres:14
-    container_name: postgres_dev
-    env_file:
-      - .env.dev
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data_dev:/var/lib/postgresql/data
+#   db:
+#     image: postgres:14
+#     container_name: postgres_dev
+#     env_file:
+#       - .env.dev
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - postgres_data_dev:/var/lib/postgresql/data
 
-volumes:
-  postgres_data_dev:
+# volumes:
+#   postgres_data_dev:

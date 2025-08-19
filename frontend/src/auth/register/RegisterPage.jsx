@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AnimatedBackground, FormWrapper, InputField, PasswordField } from "../shared";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const RegisterPage = () => {
   const [form, setForm] = useState({ email: "", password: "", confirm_password: "", show_password: false, loading: false });
@@ -9,11 +11,38 @@ const RegisterPage = () => {
   const handleChange = (e) => setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   const togglePassword = () => setForm((prev) => ({ ...prev, show_password: !prev.show_password }));
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    console.log("Register with:", form);
-    navigate("/");
+  
+const handleRegister = async (e) => {
+  e.preventDefault();
+
+  const payload = {
+    email: form.email,
+    password: form.password,
+    confirm_password: form.confirm_password,
   };
+
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_BASE_URL}authx/register/`,
+      payload
+    );
+
+    if (response.status === 201) {
+      toast.success("Registration successful 🎉");
+      console.log("Register with:", form);
+      navigate("/");
+    }
+  } catch (error) {
+    if (error.response) {
+      // Backend responded with error
+      toast.error(error.response.data?.message || "Registration failed");
+    } else {
+      // Network or unexpected error
+      toast.error("Something went wrong. Please try again.");
+    }
+    console.error("Register error:", error);
+  }
+};
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden py-6 sm:py-12">
